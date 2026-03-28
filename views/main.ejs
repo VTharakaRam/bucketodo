@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bucket List</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🪣 My Bucket List</h1>
+        <a href="/add" class="add-link">+Add a Wish</a>
+
+        <ul id="wishList">
+
+            <% if(wishes.length === 0){%>
+                <p class="empty">No Wishes Yet!</p>
+            <% } %>
+
+            <% for(let wish of wishes) {%> 
+
+                <li class="<%= wish.is_done ? 'done' : '' %>">
+                    <span> <%= wish.title %></span>
+
+                    <div class="actions">
+                        <% if(!wish.is_done) { %>
+                            <a href="/done/<%= wish.id %>" class="btn btn-done">✅ Done</a>
+                        <% } %>
+                        
+                        <form method="get" action="/edit/<%= wish.id %>" style="display:inline">
+                            <button type="submit" class="btn btn-edit">✏️ Edit</button>
+                        </form>
+                        
+                        <form method="post" action="/wishes/<%= wish.id %>?_method=DELETE" style="display:inline">
+                            <button type="submit" class="btn btn-delete">🗑️ Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+    
+</body>
+</html>
